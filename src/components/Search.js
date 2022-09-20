@@ -3,7 +3,7 @@ import axios from "axios";
 import Style from "./Style.css";
 
 const Search = () => {
-  const [term, setTerm] = useState("");
+  const [term, setTerm] = useState("Star Wars");
   const [results, setResults] = useState([]);
 
   useEffect(() => {
@@ -20,8 +20,19 @@ const Search = () => {
       setResults(data.query.search);
       console.log(results);
     };
-    if (term) {
+
+    if (term && !results.length) {
       search();
+    } else {
+      const timeoutId = setTimeout(() => {
+        if (term) {
+          search();
+        }
+      }, 500);
+
+      return () => {
+        clearTimeout(timeoutId);
+      };
     }
   }, [term]);
 
@@ -63,3 +74,17 @@ const Search = () => {
 };
 
 export default Search;
+
+function Person(name, dob) {
+  this.name = name;
+  this.birthday = new Date(dob);
+  this.getAge = function () {
+    const diff = Date.now() - this.birthday.getTime();
+    const ageDate = new Date(diff);
+    return Math.abs(ageDate.getUTCFullYear() - 1970);
+  };
+}
+
+const brad = new Person("brad", "8-15-1991");
+
+console.log(brad.getAge());
