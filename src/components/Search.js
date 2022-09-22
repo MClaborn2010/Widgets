@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Style from "./Style.css";
 
 const Search = () => {
   const [term, setTerm] = useState("Star Wars");
@@ -18,7 +17,6 @@ const Search = () => {
         },
       });
       setResults(data.query.search);
-      console.log(results);
     };
 
     if (term && !results.length) {
@@ -74,17 +72,3 @@ const Search = () => {
 };
 
 export default Search;
-
-function Person(name, dob) {
-  this.name = name;
-  this.birthday = new Date(dob);
-  this.getAge = function () {
-    const diff = Date.now() - this.birthday.getTime();
-    const ageDate = new Date(diff);
-    return Math.abs(ageDate.getUTCFullYear() - 1970);
-  };
-}
-
-const brad = new Person("brad", "8-15-1991");
-
-console.log(brad.getAge());
